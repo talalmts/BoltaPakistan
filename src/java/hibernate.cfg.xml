@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/project?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">5252</property>
+    <mapping class="beans.Complaint" file="" jar="" package="" resource="beans/Complaint.hbm.xml"/>
+    <mapping class="beans.Track" file="" jar="" package="" resource="beans/Track.hbm.xml"/>
+    <mapping class="beans.Endorsement" file="" jar="" package="" resource="beans/Endorsement.hbm.xml"/>
+    <mapping class="beans.Department" file="" jar="" package="" resource="beans/Department.hbm.xml"/>
+    <mapping class="beans.Users" file="" jar="" package="" resource="beans/Users.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

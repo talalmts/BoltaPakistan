@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 28, 2015 11:50:00 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="beans.Track" table="track" catalog="project" optimistic-lock="version">
+        <id name="keyinc1" type="java.lang.Integer">
+            <column name="keyinc1" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="complaint" class="beans.Complaint" fetch="select">
+            <column name="cid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="department" class="beans.Department" fetch="select">
+            <column name="did" not-null="true" />
+        </many-to-one>
+        <property name="trackdate" type="date">
+            <column name="trackdate" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

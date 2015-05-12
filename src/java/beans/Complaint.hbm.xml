@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 28, 2015 11:50:00 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="beans.Complaint" table="complaint" catalog="project" optimistic-lock="version">
+        <id name="cid" type="java.lang.Integer">
+            <column name="cid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="department" class="beans.Department" fetch="select">
+            <column name="did" not-null="true" />
+        </many-to-one>
+        <property name="type" type="string">
+            <column name="type" length="50" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" not-null="true" />
+        </property>
+        <property name="launchname" type="string">
+            <column name="launchname" length="50" not-null="true" />
+        </property>
+        <property name="cnic" type="int">
+            <column name="cnic" not-null="true" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" length="50" not-null="true" unique="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="30" not-null="true" />
+        </property>
+        <property name="location" type="string">
+            <column name="location" length="50" not-null="true" />
+        </property>
+        <property name="launchdate" type="date">
+            <column name="launchdate" length="10" not-null="true" />
+        </property>
+        <property name="positiveendorse" type="int">
+            <column name="positiveendorse" not-null="true" />
+        </property>
+        <property name="negativeendorse" type="int">
+            <column name="negativeendorse" not-null="true" />
+        </property>
+        <set name="tracks" table="track" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cid" not-null="true" />
+            </key>
+            <one-to-many class="beans.Track" />
+        </set>
+        <set name="endorsements" table="endorsement" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cid" not-null="true" />
+            </key>
+            <one-to-many class="beans.Endorsement" />
+        </set>
+    </class>
+</hibernate-mapping>

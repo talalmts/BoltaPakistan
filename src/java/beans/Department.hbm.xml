@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 28, 2015 11:50:00 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="beans.Department" table="department" catalog="project" optimistic-lock="version">
+        <id name="did" type="int">
+            <column name="did" />
+            <generator class="assigned" />
+        </id>
+        <property name="dname" type="string">
+            <column name="dname" length="50" not-null="true" />
+        </property>
+        <set name="tracks" table="track" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="did" not-null="true" />
+            </key>
+            <one-to-many class="beans.Track" />
+        </set>
+        <set name="complaints" table="complaint" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="did" not-null="true" />
+            </key>
+            <one-to-many class="beans.Complaint" />
+        </set>
+        <set name="userses" table="users" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="did" not-null="true" />
+            </key>
+            <one-to-many class="beans.Users" />
+        </set>
+    </class>
+</hibernate-mapping>
