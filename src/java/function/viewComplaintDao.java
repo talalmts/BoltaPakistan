@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
 import HibernateUtil.HibernateUtil;
 import beans.Complaint;
 import java.util.ArrayList;
+import org.hibernate.Query;
 
 
 /**
@@ -24,10 +25,9 @@ import java.util.ArrayList;
 
 public class viewComplaintDao {
 //     public static void main(String[] args) {
-//    UserDao U =  new UserDao();
-//    
-//    List<Users> lst = U.list();
-//   System.out.println(lst.get(1).getUsername());
+//    viewComplaintDao v = new viewComplaintDao();
+//    Complaint T = v.UpdateStatus(4, "None");
+//    System.out.println(T.getStatus());
 //     }
 
   public List list( ) {
@@ -57,5 +57,83 @@ public class viewComplaintDao {
       }
       return lst;
    }
+  
+  public List<Complaint> Search(String str){
+     List<Complaint> lst =  list();
+      List<Complaint> Cid  = new ArrayList<Complaint>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        
+         for (Iterator iterator = lst.iterator(); iterator.hasNext();)
+         {
+            Complaint u = (Complaint) iterator.next(); 
+            String a = u.getDescription().toLowerCase();
+            if(a.contains(str.toLowerCase())){
+                Cid.add(u);
+            }
+         }
+        return Cid;
+    }
+    public List<Complaint> SearchAdmin(String str,int did){
+     List<Complaint> lst =  list();
+      List<Complaint> Cid  = new ArrayList<Complaint>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        
+         for (Iterator iterator = lst.iterator(); iterator.hasNext();)
+         {
+            Complaint u = (Complaint) iterator.next(); 
+            String a = u.getDescription().toLowerCase();
+            if(a.contains(str.toLowerCase()) && u.getDepartment().getDid() == did){
+                Cid.add(u);
+            }
+         }
+        return Cid;
+    }
+  public Complaint GetCid(int cid){
+       Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        Complaint c = null;
+              try{
+         tx = session.beginTransaction();
+        Query query = session.createQuery("FROM Complaint where Cid = :id ");
+        query.setParameter("id", cid);
+        List<Complaint> list = query.list();
+        c = (Complaint)list.get(0);
+        System.out.println(" "+ c.getDescription());
+
+
+         tx.commit();
+      }catch (HibernateException e) {
+         if (tx!=null) tx.rollback();
+         e.printStackTrace(); 
+      }finally {
+         session.close(); 
+      }
+  return c;
+  }
+  public Complaint UpdateStatus(int cid,String status){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        Complaint c = null;
+              try{
+         tx = session.beginTransaction();
+        Query query = session.createQuery("FROM Complaint where Cid = :id ");
+        query.setParameter("id", cid);
+        List<Complaint> list = query.list();
+        c = (Complaint)list.get(0);
+        c.setStatus(status);
+         session.update(c); 
+
+
+         tx.commit();
+      }catch (HibernateException e) {
+         if (tx!=null) tx.rollback();
+         e.printStackTrace(); 
+      }finally {
+         session.close(); 
+      }
+  return c;
+  }
     
 }

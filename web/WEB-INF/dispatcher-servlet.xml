@@ -10,12 +10,15 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-   <bean id = "key" class = "controller.UserController"/>
+   <bean id = "key" class = "controller.AdminSearchComplaint"/>
    <bean id = "key1" class = "controller.loginController"/>
    <bean id = "key2" class = "controller.signupController"/>
    <bean id = "key3" class = "controller.viewComplaintController"/>
-   
-      
+   <bean id = "key5" class = "controller.ComplaintSearchController"/>
+   <bean id = "key6" class = "controller.ComplaintShow"/>
+    <bean id = "key7" class = "controller.ComplaintShowAdmin"/>
+    <bean id = "key8" class = "controller.GetStatus"/>
+     <bean id = "key9" class = "controller.UpdateStatus"/>
     
     <!--
     Most controllers will use the ControllerClassNameHandlerMapping above, but
@@ -30,6 +33,13 @@
                 <prop key="login.htm">key1</prop>
                 <prop key="signup.htm">key2</prop>
                 <prop key="viewComplaint.htm">key3</prop>
+                 <prop key="Search.htm">key5</prop>
+                 <prop key="ComplaintView.htm">key6</prop>
+                  <prop key="test.htm">key</prop>
+                 <prop key="ComplaintViewAdmin.htm">key7</prop>
+                  <prop key="status.htm">key8</prop>
+                  <prop key="StatusUpdated.htm">key9</prop>
+
             </props>
         </property>
     </bean>

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import function.loginDao;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,14 +29,17 @@ public class loginController implements Controller{
         String temp = "Username or password incorrect";
         System.out.println(u_name+" : "+u_password);
         loginDao o = new loginDao();
-        int i1 = o.list(u_name,u_password);
-        if (i1 == 1){
+        String sid   =  hsr.getSession().getId();
+        m.addObject("sid", sid);
+        int did = o.list(u_name,u_password);
+        System.out.println("did :"+did);
+        if (did != 0){
             temp = "login success";
             m = new ModelAndView("test");
+            m.addObject("departmentid", did);
             m.addObject("success", temp);
-            return m;
-            
-            
+            hsr.getSession().setAttribute("did", did);
+            return m;      
         }
         
         m.addObject("success", temp);

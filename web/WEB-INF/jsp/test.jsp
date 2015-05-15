@@ -4,7 +4,8 @@
     Author     : Talal Saleem
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1" session="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -14,22 +15,27 @@
     </head>
     <body>
         <h1>Login Successful</h1>
+                        
+    <h1>End</h1>
+    
+            <title>Search Page</title>
+    </head>
+    <body>
+        <h1>Search Complaint</h1>
+        <form action="test.htm">
+            <input type="text" name="Searchcomp" placeholder="Search" value=""><br>
+            <input type="submit" value="Submit">
+        </form>
         
-        <a href="viewComplaint.htm">view complaints</a>
-        
-        
-        <c:forEach items="${complaintList}" var="a">
-		${a.getCid()} 
-                ${a.getDepartment()}
-		${a.getType()}
-		${a.getDescription()}
-		${a.getLaunchname()}
-		<br>
+          <c:forEach items="${mylist}" var="a">
+          <form action="ComplaintViewAdmin.htm">
+         <input type="hidden" name="Cid" placeholder="Search" value="${a.getCid()}">
+         <a> ${a.getCid()}     ${a.getDescription()} 
+         <input type="submit" value="View"><a/>
+              </form>
 	</c:forEach>
         
-        
-        
-        
-    <h1>End</h1>
+       department id =  ${department}
+    </body>
     </body>
 </html>

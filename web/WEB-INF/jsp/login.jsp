@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <h1>session id = ${sid}</h1>
     <body>
         <form action="login.htm">
 First name: <input type="text" name="FirstName" value=""><br>
@@ -22,7 +23,8 @@ Last name: <input type="password" name="password1" value=""><br>
    
         
         
-            ${success}    
+            ${success} 
+            
 	   
         
         

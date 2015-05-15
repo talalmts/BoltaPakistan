@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
 import HibernateUtil.HibernateUtil;
 import beans.Users;
 import java.util.ArrayList;
+import org.hibernate.Query;
 
 
 /**
@@ -24,17 +25,18 @@ import java.util.ArrayList;
 
 public class loginDao {
 //     public static void main(String[] args) {
-//    UserDao U =  new UserDao();
-//    
-//    List<Users> lst = U.list();
-//   System.out.println(lst.get(1).getUsername());
+//    loginDao U =  new loginDao();
+//    String a = "rotlu.k";
+//    String b = "hdfgdf";
+//   int j = U.list(a,b);
+//   System.out.println("retrun : "+j);
 //     }
 
   public int list(String n,String p ) {
       Session session = HibernateUtil.getSessionFactory().openSession();
       Transaction tx = null;
       int i = 0;
-      List<Users> lst =new ArrayList<Users>();  
+      List<Users> lst = new ArrayList<Users>();  
       try{
          tx = session.beginTransaction();
          List employees = session.createQuery("FROM Users").list(); 
@@ -44,15 +46,12 @@ public class loginDao {
             Users u = (Users) iterator.next(); 
             String n1 = u.getUsername();
             String p1 =u.getPassword();
-            if ((n1.equals(n))&&(p1.equals(p))){
-                i = 1;
+            if (n1.equals(n) && p1.equals(p)){
+            lst.add(u);
+            i = lst.get(0).getDepartment().getDid();
+            System.out.println("did: "+ i);
                 break;
             }
-            //System.out.println("First Name: " + u.getUsername()); 
-            //System.out.println("  Last Name: " + u.getPassword());
-            lst.add(u);
-            //System.out.println(lst.get(i).getUsername());
-         //i++;
          }
          
          tx.commit();
@@ -64,5 +63,5 @@ public class loginDao {
       }
       return i;
    }
-    
+ 
 }
