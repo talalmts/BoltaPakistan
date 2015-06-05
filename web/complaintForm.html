@@ -1,0 +1,97 @@
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+         <style type="text/css">
+        #map_canvas {height:600px;width:800px}
+    </style>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript">
+        var map;
+        var markersArray = [];
+
+        function initMap()
+        {
+            var latlng = new google.maps.LatLng(33.641656100000000000,72.983588599999960000);
+            var myOptions = {
+                zoom: 15,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            // add a click event handler to the map object
+            google.maps.event.addListener(map, "click", function(event)
+            {
+                // place a marker
+                placeMarker(event.latLng);
+
+                // display the lat/lng in your form's lat/lng fields
+                document.getElementById("latFld").value = event.latLng.lat();
+                document.getElementById("lngFld").value = event.latLng.lng();
+            });
+        }
+        function placeMarker(location) {
+            // first remove all markers if there are any
+            deleteOverlays();
+
+            var marker = new google.maps.Marker({
+                position: location, 
+                map: map
+            });
+
+            // add marker in markers array
+            markersArray.push(marker);
+
+            //map.setCenter(location);
+        }
+
+        // Deletes all markers in the array by removing references to them
+        function deleteOverlays() {
+            if (markersArray) {
+                for (i in markersArray) {
+                    markersArray[i].setMap(null);
+                }
+            markersArray.length = 0;
+            }
+        }
+    </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Complaint Page!!</title>
+    </head>
+     <body onload="initMap()">
+        <h1>Launch a Complain</h1>
+           
+        <form method="post" action="sendcomplaint.htm" enctype="multipart/form-data">>
+Name: <input type="text" name="FirstName" value=""><br>
+CNIC: <input type="text" name="cnic" value=""><br>
+<!--Location: <input type="text" name="location" value=""><br>-->
+ 
+<div id="map_canvas"></div>
+    <input type="text" id="latFld" name="lat">
+    <input type="text" id="lngFld" name="lng"></br>
+    
+Department:<select name="type">
+<option value="Health">Health</option>
+<option value="Education">Education</option>
+<option value="Anti-Corruption">Anti-Corruption</option>
+<option value="City Council">City Council</option>
+<option value="Police">Police</option>
+</select><br>
+<textarea name="desc" rows="5" cols="50" maxlength="250">
+</textarea><br>
+maximum length in 250<br>
+<input type="file"  name="file" id="file"  accept="image/*">
+<br><br>
+<input type="submit" value="Submit">
+</form>
+        
+   
+        
+        
+            ${success} 
+</body>
+</html>

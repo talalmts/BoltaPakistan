@@ -1,0 +1,140 @@
+
+CREATE DATABASE boltapakistan;
+USE project;
+
+-- Creating demo tables 
+
+CREATE TABLE IF NOT EXISTS `department`(
+    `did` INT UNSIGNED PRIMARY KEY NOT NULL,
+    `dname` VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `complaint`(
+    `cid` INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `type` VARCHAR(50) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    `launchname` VARCHAR(50) NOT NULL,
+    `cnic` VARCHAR(50) NOT NULL,
+    `image` VARCHAR(100) NOT NULL UNIQUE,
+    `status` VARCHAR(50) NOT NULL,
+    `location` VARCHAR(50) NOT NULL,
+    `launchdate` DATE NOT NULL,
+    `did` INT UNSIGNED NOT NULL,
+    `positiveendorse` INT UNSIGNED NOT NULL,
+    `negativeendorse` INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`did`)
+        REFERENCES department(`did`)
+);
+
+CREATE TABLE IF NOT EXISTS `endorsement`(
+    `keyinc` INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `cid` INT UNSIGNED NOT NULL,
+    `lname` VARCHAR(50) NOT NULL,
+    `description` VARCHAR(100) NOT NULL,
+    `cnic`  VARCHAR(50) NOT NULL,
+    `endorsetype` BIT(1) NOT NULL,
+    FOREIGN KEY (`cid`)
+        REFERENCES complaint(`cid`)
+);
+
+CREATE TABLE IF NOT EXISTS `users`(
+    `username` VARCHAR(25) PRIMARY KEY NOT NULL,
+    `password` VARCHAR(25) NOT NULL,
+    `did` INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`did`) 
+        REFERENCES department(`did`)
+);
+
+CREATE TABLE IF NOT EXISTS `track`(
+    `keyinc1` INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `cid` INT UNSIGNED NOT NULL,
+    `did` INT UNSIGNED NOT NULL,
+    `trackdate` DATE NOT NULL,
+    `tracking` VARCHAR(255) NOT NULL,
+    FOREIGN KEY (`did`) 
+        REFERENCES department(`did`),
+    FOREIGN KEY (`cid`) 
+        REFERENCES complaint(`cid`)
+);
+
+DELIMITER $$
+CREATE TRIGGER After_track_insert
+    After Insert ON track
+    FOR EACH ROW BEGIN
+ 
+    UPDATE complaint
+        SET `did`=NEW.did
+        WHERE cid = NEW.cid;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER After_track_endorsement
+    After Insert ON `endorsement`
+    FOR EACH ROW BEGIN
+	IF NEW.endorsetype = 1 THEN
+	    UPDATE complaint
+            SET `positiveendorse`= `positiveendorse`+1
+            WHERE cid = NEW.cid;
+        ELSEIF NEW.endorsetype = 0 THEN
+            UPDATE complaint
+            SET `negativeendorse`= `negativeendorse`+1
+            WHERE cid = NEW.cid;
+        END IF;
+END$$
+DELIMITER ;
+
+
+INSERT INTO `department`
+VALUES (001,'Health');
+
+INSERT INTO `department`
+VALUES (002,'Education');
+
+INSERT INTO `department`
+VALUES (003,'Anti-Corruption');
+
+INSERT INTO `department`
+VALUES (004,'City_Council');
+
+INSERT INTO `department`
+VALUES (005,'Police');
+
+INSERT INTO `complaint` (type,description,launchname,cnic,image,status,location,launchdate,did,positiveendorse,negativeendorse)
+VALUES ('Health','Beds Missing','shariq',35205-3826114-5,'ascscs','No','Islamabad',CURRENT_TIMESTAMP(),'001',0,0);
+
+INSERT INTO `complaint` (type,description,launchname,cnic,image,status,location,launchdate,did,positiveendorse,negativeendorse)
+VALUES ('Health','Vaccine reuse','Huzaifa',35205-3826114-5,'sdafdfd','No','Islamabad',CURRENT_TIMESTAMP(),'001',0,0);
+
+INSERT INTO `complaint` (type,description,launchname,cnic,image,status,location,launchdate,did,positiveendorse,negativeendorse)
+VALUES ('Education','Ghost School','Talal',544211,'fgdfdfvfb','No','Islamabad',CURRENT_TIMESTAMP(),'002',0,0);
+
+INSERT INTO `complaint` (type,description,launchname,cnic,image,status,location,launchdate,did,positiveendorse,negativeendorse)
+VALUES ('Education','Teacher Absence','Hamza',452105,'ldkenfdw','No','Islamabad',CURRENT_TIMESTAMP(),'002',0,0);
+
+INSERT INTO `complaint` (type,description,launchname,cnic,image,status,location,launchdate,did,positiveendorse,negativeendorse)
+VALUES ('Corruption','comisioner is asking money','Husnain',415257,'sdasjdna','No','Islamabad',CURRENT_TIMESTAMP(),'003',0,0);
+
+INSERT INTO `complaint` (type,description,launchname,cnic,image,status,location,launchdate,did,positiveendorse,negativeendorse)
+VALUES ('City issue','pipes breakage','Hafiz',56542,'rtrtre','No','Islamabad',CURRENT_TIMESTAMP(),'004',0,0);
+
+INSERT INTO `complaint` (type,description,launchname,cnic,image,status,location,launchdate,did,positiveendorse,negativeendorse)
+VALUES ('Police','Car snatching','Qureshi',641211,'jksjsd','No','Islamabad',CURRENT_TIMESTAMP(),'005',0,0);
+
+INSERT INTO `users`
+VALUES ('talal','a',001);
+
+INSERT INTO `users`
+VALUES ('koila.a','sfdfd',002);
+
+INSERT INTO `users`
+VALUES ('rotlu.k','hdfgdf',003);
+
+INSERT INTO `endorsement` (cid,lname,description,cnic,endorsetype)
+VALUES (1,'Kashif','dsdsa',54566,0);
+
+INSERT INTO `endorsement` (cid,lname,description,cnic,endorsetype)
+VALUES (1,'Junaid','dssdsa',2532,0);
+
+INSERT INTO `endorsement` (cid,lname,description,cnic,endorsetype)
+VALUES (1,'Ahsan','dfdfd',5421,1);
