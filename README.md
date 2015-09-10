@@ -8,22 +8,22 @@ For the department the system will simple show user complaint, status and locati
 
 ##Requirement:
 ###System Administration Requirement
-*Direct upload to a Server
+* Direct upload to a Server
 ###Non Functional Requirements
-*Usability. The system must be used by a variety of staff, often working under time pressure and with different levels of experience using computer-based information systems.
-*Reliability. The system must be available all the time. Its mean time to failure is as minimal as possible.
-*Speed. Centralized large database is in the system. User/event response time must be fast.
-*Operational costs. The operational costs of the system must be ‘reasonable’ for management.
+* Usability. The system must be used by a variety of staff, often working under time pressure and with different levels of experience using computer-based information systems.
+* Reliability. The system must be available all the time. Its mean time to failure is as minimal as possible.
+* Speed. Centralized large database is in the system. User/event response time must be fast.
+* Operational costs. The operational costs of the system must be ‘reasonable’ for management.
 ###Functional Requirements
-*Tax Payer Requirement
-*Photos can be uploaded to show the severity of a situation.
-*Time, date and Place can be written down for a problem.
-*Response is shown on that problem, to know whether problem is solved or not.
+* Tax Payer Requirement
+* Photos can be uploaded to show the severity of a situation.
+* Time, date and Place can be written down for a problem.
+* Response is shown on that problem, to know whether problem is solved or not.
 ###Authorities Requirement
-*Authorities can see problem of their respective department
-*There must be a option of searches in a system to follow-up a same complain
-*Authorities can refer problem to other department
-*Shown in locations. using google maps and google analytics
+* Authorities can see problem of their respective department
+* There must be a option of searches in a system to follow-up a same complain
+* Authorities can refer problem to other department
+* Shown in locations. using google maps and google analytics
 Modules:
 Our Project will be implemented in two technologies: Web and Android Application. In Web Application, Authorities can view problem in different localities. It is based on Web, as authorities usually work on computer. Taxpaying /Complainer side will be implemented on Android Application. For verification, it is easier to upload a photo on their smart phones.
 
@@ -39,5 +39,5 @@ Target audience of the system each and every tax paying person who want to impro
 
 ##Additional Information:
 
-*Implementation will be based on greener Pakistan mainly CDA
-*Emphasis on water stagnation and infrastructure issues.
+* Implementation will be based on greener Pakistan mainly CDA
+* Emphasis on water stagnation and infrastructure issues.
